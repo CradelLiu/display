@@ -1,23 +1,32 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import header from './views/header'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    }
-  ]
+    routes: [
+        {
+            path: '/',
+            redirect: '/page1'
+        },
+        {
+            path: '/page1',
+            name: 'page1',
+            components: {
+                header: header,
+                left: () => import('./views/page1/page1-left'),
+                right: () => import('./views/page1/page1-right'),
+            }
+        },
+        {
+            path: '/page2',
+            name: 'page2',
+            components: {
+                header: header,
+                left: () => import('./views/page2/page2-left'),
+                right: () => import('./views/page2/page2-right'),
+            }
+        }
+    ]
 })
